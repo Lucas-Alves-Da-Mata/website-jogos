@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PvP Mobile - Jogo Futurista de Batalha</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animações de fundo -->
+    <div class="background-animation" id="background"></div>
+    <div class="grid-lines"></div>
+    <div class="lightning-container" id="lightningContainer"></div>
+
+    <!-- Arena de batalha -->
+    <div class="battle-arena" id="battleArena">
+        <div class="character character-1" id="character1">
+            <div class="laser-beam" id="laser1"></div>
+        </div>
+        <div class="character character-2" id="character2">
+            <div class="laser-beam" id="laser2"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">PvP MOBILE</div>
+        <nav>
+            <ul>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#characters" class="nav-link">Personagens</a></li>
+                <li><a href="#battle" class="nav-link">Batalha</a></li>
+                <li><a href="#ranking" class="nav-link">Ranking</a></li>
+                <li><a href="#download" class="nav-link">Download</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle" id="menuToggle">☰</div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero-section" id="home">
+            <h1 class="game-title">BATALHA FUTURISTA</h1>
+            <p class="game-subtitle">Entre em um mundo de combates épicos onde tecnologia e habilidade se encontram. Escolha seu guerreiro e domine o campo de batalha!</p>
+            <div class="hero-buttons">
+                <button class="hero-btn primary" id="playNow">JOGAR AGORA</button>
+                <button class="hero-btn secondary" id="watchTrailer">ASSISTIR TRAILER</button>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features-section">
+            <article class="feature-card">
+                <div class="feature-icon">⚔️</div>
+                <h3 class="feature-title">Combates Intensos</h3>
+                <p class="feature-description">Batalhas PvP em tempo real com gráficos de última geração e física realista.</p>
+            </article>
+            <article class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3 class="feature-title">Personagens Únicos</h3>
+                <p class="feature-description">Mais de 50 personagens futuristas com habilidades especiais e armas avançadas.</p>
+            </article>
+            <article class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">Sistema de Ranking</h3>
+                <p class="feature-description">Suba nas posições do ranking global e conquiste recompensas exclusivas.</p>
+            </article>
+        </section>
+
+        <!-- Personagens -->
+        <section class="characters-section" id="characters">
+            <h2 class="section-title">ESCOLHA SEU GUERREIRO</h2>
+            <div class="characters-grid" id="charactersGrid">
+                <!-- Personagens serão adicionados via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Seção de Batalha -->
+        <section class="battle-section" id="battle">
+            <h2 class="section-title">ARENA DE BATALHA</h2>
+            <div class="battle-content">
+                <div class="battle-info">
+                    <h3>Modo PvP Intenso</h3>
+                    <p>Entre em combates 1v1 ou em equipes de até 5 jogadores. Use estratégias, habilidades especiais e armas futuristas para derrotar seus oponentes.</p>
+                    <div class="battle-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="playersOnline">50,000+</span>
+                            <span class="stat-label">Jogadores Online</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="battlesToday">1,000,000+</span>
+                            <span class="stat-label">Batalhas Hoje</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="winRate">65%</span>
+                            <span class="stat-label">Taxa de Vitórias</span>
+                        </div>
+                    </div>
+                    <button class="hero-btn primary" id="startBattle">INICIAR BATALHA</button>
+                </div>
+                <div class="battle-preview">
+                    <div class="battle-arena-preview">
+                        <div class="player-character">🤖</div>
+                        <div class="vs">VS</div>
+                        <div class="enemy-character">👾</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal de Trailer -->
+        <div class="modal" id="trailerModal">
+            <div class="modal-content">
+                <span class="close" id="closeTrailer">&times;</span>
+                <div class="video-placeholder">
+                    <div class="video-icon">▶️</div>
+                    <h3>Trailer do Jogo - PvP Mobile</h3>
+                    <p>Assista ao trailer oficial e veja a ação em primeira mão!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Download -->
+        <div class="modal" id="downloadModal">
+            <div class="modal-content download-modal">
+                <span class="close" id="closeDownload">&times;</span>
+                <h2>Baixe PvP Mobile</h2>
+                <div class="download-options">
+                    <div class="download-option" id="androidDownload">
+                        <div class="platform-icon">🤖</div>
+                        <h3>Android</h3>
+                        <p>Disponível na Google Play Store</p>
+                        <button class="hero-btn primary">BAIXAR AGORA</button>
+                    </div>
+                    <div class="download-option" id="iosDownload">
+                        <div class="platform-icon">📱</div>
+                        <h3>iOS</h3>
+                        <p>Disponível na App Store</p>
+                        <button class="hero-btn primary">BAIXAR AGORA</button>
+                    </div>
+                    <div class="download-option" id="pcDownload">
+                        <div class="platform-icon">💻</div>
+                        <h3>PC</h3>
+                        <p>Versão para Windows/Mac</p>
+                        <button class="hero-btn primary">BAIXAR AGORA</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Personagem -->
+        <div class="modal" id="characterModal">
+            <div class="modal-content character-modal">
+                <span class="close" id="closeCharacter">&times;</span>
+                <div class="character-details" id="characterDetails">
+                    <!-- Detalhes do personagem serão adicionados via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>PvP Mobile</h3>
+                <p>O jogo de batalha definitivo para dispositivos móveis.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#home" class="footer-link">Home</a></li>
+                    <li><a href="#characters" class="footer-link">Personagens</a></li>
+                    <li><a href="#battle" class="footer-link">Batalha</a></li>
+                    <li><a href="#ranking" class="footer-link">Ranking</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Social</h4>
+                <div class="social-links">
+                    <a href="#" class="social-link">🎮</a>
+                    <a href="#" class="social-link">📱</a>
+                    <a href="#" class="social-link">💬</a>
+                    <a href="#" class="social-link">📢</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2023 PvP Mobile. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

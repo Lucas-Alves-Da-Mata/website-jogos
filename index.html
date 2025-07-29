@@ -45,14 +45,14 @@
             <h1 class="game-title">BATALHA FUTURISTA</h1>
             <p class="game-subtitle">Entre em um mundo de combates épicos onde tecnologia e habilidade se encontram. Escolha seu guerreiro e domine o campo de batalha!</p>
             <div class="hero-buttons">
-                <button class="hero-btn primary" id="playNow">JOGAR AGORA</button>
-                <button class="hero-btn secondary" id="watchTrailer">ASSISTIR TRAILER</button>
+                <button class="hero-btn primary" id="playNowBtn">JOGAR AGORA</button>
+                <button class="hero-btn secondary" id="watchTrailerBtn">ASSISTIR TRAILER</button>
             </div>
         </section>
 
         <!-- Features -->
         <section class="features-section">
-            <article class="feature-card">
+            <article class="feature-card" id="combatFeature">
                 <div class="feature-icon">⚔️</div>
                 <h3 class="feature-title">Combates Intensos</h3>
                 <p class="feature-description">Batalhas PvP em tempo real com gráficos de última geração e física realista.</p>
@@ -98,7 +98,7 @@
                             <span class="stat-label">Taxa de Vitórias</span>
                         </div>
                     </div>
-                    <button class="hero-btn primary" id="startBattle">INICIAR BATALHA</button>
+                    <button class="hero-btn primary" id="startBattleBtn">INICIAR BATALHA</button>
                 </div>
                 <div class="battle-preview">
                     <div class="battle-arena-preview">
@@ -132,19 +132,19 @@
                         <div class="platform-icon">🤖</div>
                         <h3>Android</h3>
                         <p>Disponível na Google Play Store</p>
-                        <button class="hero-btn primary">BAIXAR AGORA</button>
+                        <button class="hero-btn primary download-btn" data-platform="Android">BAIXAR AGORA</button>
                     </div>
                     <div class="download-option" id="iosDownload">
                         <div class="platform-icon">📱</div>
                         <h3>iOS</h3>
                         <p>Disponível na App Store</p>
-                        <button class="hero-btn primary">BAIXAR AGORA</button>
+                        <button class="hero-btn primary download-btn" data-platform="iOS">BAIXAR AGORA</button>
                     </div>
                     <div class="download-option" id="pcDownload">
                         <div class="platform-icon">💻</div>
                         <h3>PC</h3>
                         <p>Versão para Windows/Mac</p>
-                        <button class="hero-btn primary">BAIXAR AGORA</button>
+                        <button class="hero-btn primary download-btn" data-platform="PC">BAIXAR AGORA</button>
                     </div>
                 </div>
             </div>
@@ -156,6 +156,57 @@
                 <span class="close" id="closeCharacter">&times;</span>
                 <div class="character-details" id="characterDetails">
                     <!-- Detalhes do personagem serão adicionados via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Seleção de Personagem -->
+        <div class="modal" id="characterSelectionModal">
+            <div class="modal-content selection-modal">
+                <span class="close" id="closeSelection">&times;</span>
+                <h2>SELECIONE SEUS PERSONAGENS</h2>
+                <div class="selection-content">
+                    <div class="character-selection">
+                        <h3>Seu Personagem</h3>
+                        <div class="selected-character" id="playerCharacter">
+                            <div class="placeholder">Selecione um personagem</div>
+                        </div>
+                        <button class="hero-btn secondary" id="choosePlayerBtn">ESCOLHER</button>
+                    </div>
+                    <div class="vs-indicator">VS</div>
+                    <div class="character-selection">
+                        <h3>Personagem Inimigo</h3>
+                        <div class="selected-character" id="enemyCharacter">
+                            <div class="placeholder">Selecione um personagem</div>
+                        </div>
+                        <button class="hero-btn secondary" id="chooseEnemyBtn">ESCOLHER</button>
+                    </div>
+                </div>
+                <div class="character-list" id="characterList">
+                    <!-- Lista de personagens para seleção -->
+                </div>
+                <button class="hero-btn primary" id="confirmSelectionBtn" disabled>CONFIRMAR SELEÇÃO</button>
+            </div>
+        </div>
+
+        <!-- Modal de Animação de Combate -->
+        <div class="modal" id="combatAnimationModal">
+            <div class="modal-content combat-modal">
+                <span class="close" id="closeCombat">&times;</span>
+                <h2>COMBATE INTENSO</h2>
+                <div class="combat-arena" id="combatArena">
+                    <div class="combat-character player-combat" id="combatPlayer">
+                        <div class="character-sprite-combat" id="combatPlayerSprite">🤖</div>
+                    </div>
+                    <div class="combat-vs">⚔️</div>
+                    <div class="combat-character enemy-combat" id="combatEnemy">
+                        <div class="character-sprite-combat" id="combatEnemySprite">👾</div>
+                    </div>
+                </div>
+                <div class="combat-effects" id="combatEffects"></div>
+                <div class="combat-controls">
+                    <button class="hero-btn primary" id="startCombatBtn">INICIAR COMBATE</button>
+                    <button class="hero-btn secondary" id="stopCombatBtn" disabled>PARAR</button>
                 </div>
             </div>
         </div>

@@ -211,6 +211,62 @@
             </div>
         </div>
     </main>
+    <!-- Adicione este código antes do fechamento da tag </main> -->
+
+<!-- Modal de Seleção de Personagens -->
+<div class="modal" id="characterSelectionModal">
+    <div class="modal-content selection-modal">
+        <span class="close" id="closeSelection">&times;</span>
+        <h2>SELECIONE SEUS PERSONAGENS</h2>
+        <div class="selection-content">
+            <div class="character-selection">
+                <h3>Seu Personagem</h3>
+                <div class="selected-character" id="playerCharacter">
+                    <div class="placeholder">Selecione um personagem</div>
+                </div>
+                <button class="hero-btn secondary" id="choosePlayer">ESCOLHER</button>
+            </div>
+            <div class="vs-indicator">VS</div>
+            <div class="character-selection">
+                <h3>Personagem Inimigo</h3>
+                <div class="selected-character" id="enemyCharacter">
+                    <div class="placeholder">Selecione um personagem</div>
+                </div>
+                <button class="hero-btn secondary" id="chooseEnemy">ESCOLHER</button>
+            </div>
+        </div>
+        <div class="character-list" id="characterList">
+            <!-- Lista de personagens para seleção -->
+        </div>
+        <button class="hero-btn primary" id="confirmSelection" disabled>CONFIRMAR SELEÇÃO</button>
+    </div>
+</div>
+    <!-- Adicione esta seção após a seção de personagens existente -->
+<section class="character-selection-section" id="characterSelection">
+    <h2 class="section-title">SELECIONE SEUS PERSONAGENS</h2>
+    <div class="selection-content">
+        <div class="character-selection-panel">
+            <h3>Seu Personagem</h3>
+            <div class="selected-character" id="playerCharacter">
+                <div class="placeholder">Selecione um personagem</div>
+            </div>
+            <button class="hero-btn secondary" id="choosePlayerBtn">ESCOLHER</button>
+        </div>
+        <div class="vs-indicator">VS</div>
+        <div class="character-selection-panel">
+            <h3>Personagem Inimigo</h3>
+            <div class="selected-character" id="enemyCharacter">
+                <div class="placeholder">Selecione um personagem</div>
+            </div>
+            <button class="hero-btn secondary" id="chooseEnemyBtn">ESCOLHER</button>
+        </div>
+    </div>
+    <div class="character-list" id="characterList">
+        <!-- Lista de personagens para seleção -->
+    </div>
+    <button class="hero-btn primary" id="confirmSelection" disabled>CONFIRMAR SELEÇÃO</button>
+    <button class="hero-btn primary" id="startBattleFromSelection">INICIAR BATALHA</button>
+</section>
 
     <!-- Footer -->
     <footer>

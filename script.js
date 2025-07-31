@@ -62,6 +62,8 @@ let selectedEnemy = null;
 let combatInterval = null;
 let combatActive = false;
 
+
+
 // Elementos DOM
 const background = document.getElementById("background");
 const lightningContainer = document.getElementById("lightningContainer");
@@ -800,4 +802,122 @@ function showDownloadAnimation(platform, button) {
       };
     }
   }, 100);
+}
+
+
+// ... (código existente) ...
+
+// Função para iniciar batalha - AGORA REDIRECIONA PARA A PÁGINA DE BATALHA
+function setupBattleButton() {
+    startBattleBtn.addEventListener('click', () => {
+        // Redirecionar para a página de batalha
+        window.location.href = 'battle.html';
+    });
+}
+
+// ... (resto do código existente) ...
+
+
+// Adicione estas variáveis no início do arquivo script.js, junto com as outras variáveis DOM:
+const overlay = document.createElement('div');
+overlay.className = 'overlay';
+document.body.appendChild(overlay);
+
+// Substitua a função showCharacterDetails no arquivo script.js por esta:
+
+// Mostrar detalhes do personagem centralizados
+function showCharacterDetails(characterId) {
+    const character = characters.find(c => c.id === characterId);
+    if (!character) return;
+    
+    // Criar elemento de detalhes centralizados
+    const detailsElement = document.createElement('div');
+    detailsElement.className = 'character-details-centered';
+    detailsElement.innerHTML = `
+        <div class="character-detail-image">${character.emoji}</div>
+        <h2 class="character-detail-name">${character.name}</h2>
+        <p class="character-detail-description">${character.description}</p>
+        <div class="character-detail-stats">
+            <div class="stat-bar-container">
+                <div class="stat-bar-label">ATAQUE</div>
+                <div class="stat-bar">
+                    <div class="stat-bar-fill stat-attack-fill" style="height: ${character.stats.attack}%;"></div>
+                </div>
+                <div class="stat-value">${character.stats.attack}</div>
+            </div>
+            <div class="stat-bar-container">
+                <div class="stat-bar-label">DEFESA</div>
+                <div class="stat-bar">
+                    <div class="stat-bar-fill stat-defense-fill" style="height: ${character.stats.defense}%;"></div>
+                </div>
+                <div class="stat-value">${character.stats.defense}</div>
+            </div>
+            <div class="stat-bar-container">
+                <div class="stat-bar-label">VELOCIDADE</div>
+                <div class="stat-bar">
+                    <div class="stat-bar-fill stat-speed-fill" style="height: ${character.stats.speed}%;"></div>
+                </div>
+                <div class="stat-value">${character.stats.speed}</div>
+            </div>
+        </div>
+        <button class="close-centered-details">FECHAR DETALHES</button>
+    `;
+    
+    // Adicionar evento para fechar os detalhes
+    const closeButton = detailsElement.querySelector('.close-centered-details');
+    closeButton.addEventListener('click', () => {
+        detailsElement.remove();
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    // Adicionar os detalhes ao body
+    document.body.appendChild(detailsElement);
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Fechar ao clicar no overlay
+    overlay.addEventListener('click', () => {
+        detailsElement.remove();
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+}
+
+// Atualize a função renderCharacters para usar o novo sistema:
+function renderCharacters() {
+    charactersGrid.innerHTML = '';
+    characters.forEach(character => {
+        const card = document.createElement('article');
+        card.className = 'character-card';
+        card.innerHTML = `
+            <div class="character-image">${character.emoji}</div>
+            <h3 class="character-name">${character.name}</h3>
+            <p class="character-description">${character.description.substring(0, 100)}...</p>
+            <div class="character-stats">
+                <div class="stat">
+                    <div class="stat-value">${character.stats.attack}</div>
+                    <div class="stat-label">ATAQUE</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${character.stats.defense}</div>
+                    <div class="stat-label">DEFESA</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${character.stats.speed}</div>
+                    <div class="stat-label">VELOCIDADE</div>
+                </div>
+            </div>
+            <button class="play-btn" data-character="${character.id}">VER DETALHES</button>
+        `;
+        charactersGrid.appendChild(card);
+    });
+    
+    // Adicionar eventos aos botões de ver detalhes
+    document.querySelectorAll('.play-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const characterId = parseInt(this.getAttribute('data-character'));
+            showCharacterDetails(characterId);
+        });
+    });
 }

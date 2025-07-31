@@ -4,47 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Batalha PvP Mobile</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', 'Exo 2', 'Arial', sans-serif;
+        }
+
         body {
             background: linear-gradient(135deg, #0a0a2a, #1a1a4a, #2a0a4a);
             color: #fff;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            font-family: 'Exo 2', 'Arial', sans-serif;
             overflow-x: hidden;
+            position: relative;
         }
-        
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .grid-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes grid-move {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
         .battle-container {
             max-width: 1200px;
             margin: 0 auto;
-            text-align: center;
+            padding: 2rem;
         }
-        
+
         .battle-header {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 1rem;
-            border-radius: 15px;
+            text-align: center;
             margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
             border: 1px solid rgba(0, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
         }
-        
-        .battle-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
-            animation: hero-pulse 4s ease-in-out infinite alternate;
-        }
-        
+
         .battle-title {
             font-size: 2.5rem;
             background: linear-gradient(45deg, #00ffff, #ff00ff);
@@ -52,36 +75,32 @@
             -webkit-text-fill-color: transparent;
             font-family: 'Orbitron', sans-serif;
             margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
-        
-        .battle-arena-full {
+
+        .battle-arena {
             display: flex;
             justify-content: space-around;
             align-items: center;
             margin: 2rem 0;
             padding: 2rem;
-            background: linear-gradient(145deg, #0a0a2a, #1a1a4a);
-            border-radius: 15px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
             position: relative;
             min-height: 400px;
-            overflow: hidden;
         }
-        
-        .battle-character {
+
+        .character {
             text-align: center;
             width: 200px;
-            position: relative;
         }
-        
+
         .character-sprite {
             font-size: 6rem;
             margin-bottom: 1rem;
             animation: float 3s ease-in-out infinite;
-            transition: all 0.3s ease;
         }
-        
+
         @keyframes float {
             0%, 100% {
                 transform: translateY(0);
@@ -90,66 +109,52 @@
                 transform: translateY(-20px);
             }
         }
-        
+
         .health-bar {
             width: 100%;
-            height: 30px;
+            height: 25px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            border-radius: 12px;
             margin-bottom: 1rem;
             overflow: hidden;
             border: 1px solid rgba(0, 255, 255, 0.3);
         }
-        
+
         .health-fill {
             height: 100%;
-            border-radius: 15px;
+            border-radius: 12px;
             transition: width 0.5s ease;
         }
-        
-        .player .health-fill {
-            background: linear-gradient(to right, #00ff88, #00ffff);
+
+        .void-assassin .health-fill {
+            background: linear-gradient(to right, #ff0080, #ff00ff);
         }
-        
-        .enemy .health-fill {
-            background: linear-gradient(to right, #ff416c, #ff4b2b);
+
+        .quantum-mage .health-fill {
+            background: linear-gradient(to right, #00ffff, #0088ff);
         }
-        
+
         .character-name {
-            color: #00ffff;
-            font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
+            font-family: 'Orbitron', sans-serif;
         }
-        
-        .character-stats {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
+
+        .void-assassin .character-name {
+            color: #ff0080;
         }
-        
-        .battle-vs {
+
+        .quantum-mage .character-name {
+            color: #00ffff;
+        }
+
+        .vs {
             font-size: 3rem;
             font-weight: bold;
-            color: #ff0080;
+            color: #ff00ff;
             font-family: 'Orbitron', sans-serif;
-            animation: pulse 2s infinite;
         }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                text-shadow: 0 0 10px #ff0080;
-            }
-            50% {
-                transform: scale(1.1);
-                text-shadow: 0 0 20px #ff0080;
-            }
-            100% {
-                transform: scale(1);
-                text-shadow: 0 0 10px #ff0080;
-            }
-        }
-        
+
         .battle-controls {
             display: flex;
             justify-content: center;
@@ -157,151 +162,89 @@
             margin: 2rem 0;
             flex-wrap: wrap;
         }
-        
-        .hero-btn {
+
+        .battle-btn {
             padding: 1rem 2rem;
             border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
+            border-radius: 25px;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
-        .hero-btn.primary {
-            background: linear-gradient(45deg, #00ffff, #00ff88);
-            color: #000;
+
+        .attack-btn {
+            background: linear-gradient(45deg, #ff0080, #ff00ff);
+            color: white;
         }
-        
-        .hero-btn.secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            border: 2px solid rgba(0, 255, 255, 0.5);
+
+        .special-btn {
+            background: linear-gradient(45deg, #00ffff, #0088ff);
+            color: white;
         }
-        
-        .hero-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+
+        .defend-btn {
+            background: linear-gradient(45deg, #834d9b, #d04ed6);
+            color: white;
         }
-        
-        .hero-btn:active {
-            transform: translateY(0) scale(0.98);
+
+        .battle-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
         }
-        
+
+        .battle-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .battle-log {
             background: rgba(0, 0, 0, 0.7);
             border-radius: 15px;
             padding: 1.5rem;
-            margin: 2rem 0;
             border: 1px solid rgba(0, 255, 255, 0.3);
             max-height: 200px;
             overflow-y: auto;
         }
-        
-        .battle-log h3 {
-            color: #00ffff;
-            margin-bottom: 1rem;
-            font-family: 'Orbitron', sans-serif;
-        }
-        
+
         .log-entry {
             margin-bottom: 0.5rem;
             color: rgba(255, 255, 255, 0.8);
             animation: fadeIn 0.3s ease;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .back-btn {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
             border: 2px solid rgba(0, 255, 255, 0.5);
-            padding: 0.8rem 1.5rem;
             border-radius: 25px;
-            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 1rem;
-            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
         }
-        
+
         .back-btn:hover {
             background: rgba(0, 255, 255, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
         }
-        
-        /* Animações de combate */
-        @keyframes attack {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(50px); }
-            100% { transform: translateX(0); }
-        }
-        
-        @keyframes hit {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            50% { transform: translateX(10px); }
-            75% { transform: translateX(-10px); }
-            100% { transform: translateX(0); }
-        }
-        
-        @keyframes special {
-            0% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.2); filter: brightness(2); }
-            100% { transform: scale(1); filter: brightness(1); }
-        }
-        
-        .attacking {
-            animation: attack 0.5s ease;
-        }
-        
-        .hit {
-            animation: hit 0.3s ease;
-        }
-        
-        .special {
-            animation: special 1s ease;
-        }
-        
-        /* Efeitos visuais */
-        .battle-effects {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .effect {
-            position: absolute;
-            font-size: 2rem;
-            animation: effectMove 1s forwards;
-        }
-        
-        @keyframes effectMove {
-            0% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-100px) scale(0.5);
-            }
-        }
-        
+
         @media (max-width: 768px) {
-            .battle-arena-full {
+            .battle-arena {
                 flex-direction: column;
                 gap: 2rem;
             }
@@ -318,124 +261,104 @@
             .battle-title {
                 font-size: 2rem;
             }
-            
-            .hero-btn {
-                width: 100%;
-                max-width: 300px;
-            }
         }
     </style>
 </head>
 <body>
+    <div class="background-animation" id="background"></div>
+    <div class="grid-lines"></div>
+
     <div class="battle-container">
         <div class="battle-header">
             <h1 class="battle-title">BATALHA PvP MOBILE</h1>
-            <p>Dois guerreiros futuristas enfrentam-se em combate épico!</p>
+            <p>Void Assassin vs Quantum Mage - Que comece o combate!</p>
         </div>
-        
-        <div class="battle-arena-full">
-            <div class="battle-effects" id="battleEffects"></div>
-            
-            <div class="battle-character player">
-                <div class="character-sprite" id="playerSprite">🤖</div>
+
+        <div class="battle-arena">
+            <div class="character void-assassin">
+                <div class="character-sprite">👻</div>
                 <div class="health-bar">
-                    <div class="health-fill" id="playerHealth" style="width: 100%;"></div>
+                    <div class="health-fill" style="width: 100%;"></div>
                 </div>
-                <div class="character-name" id="playerName">Neo Warrior</div>
-                <div class="character-stats" id="playerStats">
-                    <div>ATAQUE: 95</div>
-                    <div>DEFESA: 85</div>
-                    <div>VELOCIDADE: 90</div>
+                <div class="character-name">VOID ASSASSIN</div>
+                <div class="character-stats">
+                    <div>ATAQUE: 98</div>
+                    <div>DEFESA: 75</div>
+                    <div>VELOCIDADE: 95</div>
                 </div>
             </div>
-            
-            <div class="battle-vs">⚔️</div>
-            
-            <div class="battle-character enemy">
-                <div class="character-sprite" id="enemySprite">👾</div>
+
+            <div class="vs">⚔️</div>
+
+            <div class="character quantum-mage">
+                <div class="character-sprite">🧙</div>
                 <div class="health-bar">
-                    <div class="health-fill" id="enemyHealth" style="width: 100%;"></div>
+                    <div class="health-fill" style="width: 100%;"></div>
                 </div>
-                <div class="character-name" id="enemyName">Cyber Ninja</div>
-                <div class="character-stats" id="enemyStats">
-                    <div>ATAQUE: 92</div>
-                    <div>DEFESA: 78</div>
-                    <div>VELOCIDADE: 98</div>
+                <div class="character-name">QUANTUM MAGE</div>
+                <div class="character-stats">
+                    <div>ATAQUE: 97</div>
+                    <div>DEFESA: 82</div>
+                    <div>VELOCIDADE: 85</div>
                 </div>
             </div>
         </div>
-        
+
         <div class="battle-controls">
-            <button class="hero-btn primary" id="attackBtn">ATACAR</button>
-            <button class="hero-btn secondary" id="specialBtn">HABILIDADE ESPECIAL</button>
-            <button class="hero-btn secondary" id="defendBtn">DEFENDER</button>
+            <button class="battle-btn attack-btn">ATACAR</button>
+            <button class="battle-btn special-btn">HABILIDADE ESPECIAL</button>
+            <button class="battle-btn defend-btn">DEFENDER</button>
         </div>
-        
+
         <div class="battle-log">
-            <h3>REGISTRO DA BATALHA</h3>
-            <div id="battleLog">
-                <div class="log-entry">Batalha iniciada! Neo Warrior enfrenta Cyber Ninja!</div>
-                <div class="log-entry">Escolha sua ação para começar o combate.</div>
-            </div>
+            <div class="log-entry">Batalha iniciada! Void Assassin enfrenta Quantum Mage!</div>
+            <div class="log-entry">Escolha sua ação para começar o combate.</div>
         </div>
-        
-        <button class="back-btn" onclick="window.close()">FECHAR BATALHA</button>
+
+        <button class="back-btn" onclick="window.location.href='index.html'">VOLTAR AO MENU PRINCIPAL</button>
     </div>
 
     <script>
-        // Obter parâmetros da URL
-        function getUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                player: params.get('player') || 'Neo Warrior',
-                enemy: params.get('enemy') || 'Cyber Ninja',
-                playerEmoji: params.get('playerEmoji') || '🤖',
-                enemyEmoji: params.get('enemyEmoji') || '👾'
-            };
-        }
+        // Dados dos personagens
+        const voidAssassin = {
+            name: "VOID ASSASSIN",
+            emoji: "👻",
+            health: 100,
+            maxHealth: 100,
+            attack: 98,
+            defense: 75,
+            speed: 95
+        };
 
-        // Elementos DOM
-        const playerSprite = document.getElementById('playerSprite');
-        const enemySprite = document.getElementById('enemySprite');
-        const playerName = document.getElementById('playerName');
-        const enemyName = document.getElementById('enemyName');
-        const playerHealth = document.getElementById('playerHealth');
-        const enemyHealth = document.getElementById('enemyHealth');
-        const battleLog = document.getElementById('battleLog');
-        const attackBtn = document.getElementById('attackBtn');
-        const specialBtn = document.getElementById('specialBtn');
-        const defendBtn = document.getElementById('defendBtn');
-        const battleEffects = document.getElementById('battleEffects');
+        const quantumMage = {
+            name: "QUANTUM MAGE",
+            emoji: "🧙",
+            health: 100,
+            maxHealth: 100,
+            attack: 97,
+            defense: 82,
+            speed: 85
+        };
 
         // Variáveis de estado
-        let playerHP = 100;
-        let enemyHP = 100;
+        let playerHealth = voidAssassin.health;
+        let enemyHealth = quantumMage.health;
         let isPlayerTurn = true;
         let isDefending = false;
 
-        // Inicializar batalha
-        function initBattle() {
-            const params = getUrlParams();
-            
-            // Atualizar interface com personagens selecionados
-            playerSprite.textContent = params.playerEmoji;
-            enemySprite.textContent = params.enemyEmoji;
-            playerName.textContent = params.player;
-            enemyName.textContent = params.enemy;
-            
-            // Atualizar estatísticas (valores fixos para demonstração)
-            document.getElementById('playerStats').innerHTML = `
-                <div>ATAQUE: 95</div>
-                <div>DEFESA: 85</div>
-                <div>VELOCIDADE: 90</div>
-            `;
-            document.getElementById('enemyStats').innerHTML = `
-                <div>ATAQUE: 92</div>
-                <div>DEFESA: 78</div>
-                <div>VELOCIDADE: 98</div>
-            `;
-            
-            addLogMessage(`Batalha iniciada! ${params.player} enfrenta ${params.enemy}!`);
+        // Elementos DOM
+        const healthBars = document.querySelectorAll('.health-fill');
+        const playerHealthBar = healthBars[0];
+        const enemyHealthBar = healthBars[1];
+        const battleLog = document.querySelector('.battle-log');
+        const attackBtn = document.querySelector('.attack-btn');
+        const specialBtn = document.querySelector('.special-btn');
+        const defendBtn = document.querySelector('.defend-btn');
+
+        // Atualizar barras de vida
+        function updateHealthBars() {
+            playerHealthBar.style.width = `${(playerHealth / voidAssassin.maxHealth) * 100}%`;
+            enemyHealthBar.style.width = `${(enemyHealth / quantumMage.maxHealth) * 100}%`;
         }
 
         // Adicionar mensagem ao log
@@ -447,239 +370,134 @@
             battleLog.scrollTop = battleLog.scrollHeight;
         }
 
-        // Atualizar barras de vida
-        function updateHealthBars() {
-            playerHealth.style.width = `${playerHP}%`;
-            enemyHealth.style.width = `${enemyHP}%`;
-            
-            // Mudar cor conforme a vida
-            if (playerHP < 30) {
-                playerHealth.style.background = 'linear-gradient(to right, #ff416c, #ff4b2b)';
-            } else if (playerHP < 60) {
-                playerHealth.style.background = 'linear-gradient(to right, #ff8c00, #ffa500)';
-            } else {
-                playerHealth.style.background = 'linear-gradient(to right, #00ff88, #00ffff)';
-            }
-            
-            if (enemyHP < 30) {
-                enemyHealth.style.background = 'linear-gradient(to right, #ff416c, #ff4b2b)';
-            } else if (enemyHP < 60) {
-                enemyHealth.style.background = 'linear-gradient(to right, #ff8c00, #ffa500)';
-            } else {
-                enemyHealth.style.background = 'linear-gradient(to right, #ff416c, #ff4b2b)';
-            }
+        // Desabilitar botões
+        function disableButtons() {
+            attackBtn.disabled = true;
+            specialBtn.disabled = true;
+            defendBtn.disabled = true;
         }
 
-        // Criar efeito visual
-        function createEffect(emoji, targetElement) {
-            const effect = document.createElement('div');
-            effect.className = 'effect';
-            effect.textContent = emoji;
-            
-            const rect = targetElement.getBoundingClientRect();
-            const containerRect = document.querySelector('.battle-arena-full').getBoundingClientRect();
-            
-            effect.style.left = (rect.left - containerRect.left + rect.width / 2 - 20) + 'px';
-            effect.style.top = (rect.top - containerRect.top + rect.height / 2 - 20) + 'px';
-            
-            battleEffects.appendChild(effect);
-            
-            setTimeout(() => {
-                if (effect.parentNode) {
-                    effect.parentNode.removeChild(effect);
-                }
-            }, 1000);
+        // Habilitar botões
+        function enableButtons() {
+            if (playerHealth > 0 && enemyHealth > 0) {
+                attackBtn.disabled = false;
+                specialBtn.disabled = false;
+                defendBtn.disabled = false;
+            }
         }
 
         // Ataque do jogador
         function playerAttack() {
-            if (playerHP <= 0 || enemyHP <= 0 || !isPlayerTurn) return;
+            if (!isPlayerTurn || playerHealth <= 0 || enemyHealth <= 0) return;
             
             isPlayerTurn = false;
-            attackBtn.disabled = true;
-            specialBtn.disabled = true;
-            defendBtn.disabled = true;
+            disableButtons();
             
-            // Animação de ataque
-            playerSprite.classList.add('attacking');
-            createEffect('💥', enemySprite);
+            const damage = Math.floor(Math.random() * 25) + 15;
+            enemyHealth = Math.max(0, enemyHealth - damage);
+            updateHealthBars();
             
-            setTimeout(() => {
-                playerSprite.classList.remove('attacking');
-                
-                const damage = Math.floor(Math.random() * 25) + 15;
-                enemyHP = Math.max(0, enemyHP - damage);
-                updateHealthBars();
-                
-                addLogMessage(`${playerName.textContent} ataca e causa ${damage} de dano!`);
-                
-                if (enemyHP <= 0) {
-                    addLogMessage(`${playerName.textContent} vence a batalha! 🎉`);
-                    createEffect('🏆', playerSprite);
-                    return;
-                }
-                
-                // Turno do inimigo após um pequeno delay
-                setTimeout(enemyTurn, 1500);
-            }, 500);
+            addLogMessage(`Void Assassin ataca e causa ${damage} de dano!`);
+            
+            if (enemyHealth <= 0) {
+                addLogMessage('🏆 Void Assassin vence a batalha!');
+                return;
+            }
+            
+            setTimeout(enemyTurn, 1500);
         }
 
-        // Habilidade especial
+        // Habilidade especial do jogador
         function playerSpecial() {
-            if (playerHP <= 0 || enemyHP <= 0 || !isPlayerTurn) return;
+            if (!isPlayerTurn || playerHealth <= 0 || enemyHealth <= 0) return;
             
             isPlayerTurn = false;
-            attackBtn.disabled = true;
-            specialBtn.disabled = true;
-            defendBtn.disabled = true;
+            disableButtons();
             
-            // Animação especial
-            playerSprite.classList.add('special');
-            createEffect('⚡', playerSprite);
+            const damage = Math.floor(Math.random() * 35) + 25;
+            enemyHealth = Math.max(0, enemyHealth - damage);
+            updateHealthBars();
             
-            setTimeout(() => {
-                playerSprite.classList.remove('special');
-                enemySprite.classList.add('hit');
-                createEffect('💥', enemySprite);
-                
-                setTimeout(() => {
-                    enemySprite.classList.remove('hit');
-                    
-                    const damage = Math.floor(Math.random() * 35) + 25;
-                    enemyHP = Math.max(0, enemyHP - damage);
-                    updateHealthBars();
-                    
-                    addLogMessage(`${playerName.textContent} usa habilidade especial e causa ${damage} de dano! ⚡`);
-                    
-                    if (enemyHP <= 0) {
-                        addLogMessage(`${playerName.textContent} vence a batalha com uma habilidade especial! 🎉`);
-                        createEffect('🏆', playerSprite);
-                        return;
-                    }
-                    
-                    // Turno do inimigo após um pequeno delay
-                    setTimeout(enemyTurn, 1500);
-                }, 300);
-            }, 1000);
+            addLogMessage(`Void Assassin usa habilidade especial e causa ${damage} de dano!`);
+            
+            if (enemyHealth <= 0) {
+                addLogMessage('🏆 Void Assassin vence a batalha com uma habilidade especial!');
+                return;
+            }
+            
+            setTimeout(enemyTurn, 1500);
         }
 
-        // Defesa
+        // Defesa do jogador
         function playerDefend() {
-            if (playerHP <= 0 || enemyHP <= 0 || !isPlayerTurn) return;
+            if (!isPlayerTurn || playerHealth <= 0 || enemyHealth <= 0) return;
             
             isPlayerTurn = false;
             isDefending = true;
-            attackBtn.disabled = true;
-            specialBtn.disabled = true;
-            defendBtn.disabled = true;
+            disableButtons();
             
-            addLogMessage(`${playerName.textContent} se defende!`);
-            createEffect('🛡️', playerSprite);
+            addLogMessage('Void Assassin se defende!');
             
-            // Turno do inimigo após um pequeno delay
             setTimeout(enemyTurn, 1000);
         }
 
         // Turno do inimigo
         function enemyTurn() {
-            if (playerHP <= 0 || enemyHP <= 0) return;
+            if (playerHealth <= 0 || enemyHealth <= 0) return;
             
             const actions = ['attack', 'special', 'defend'];
             const action = actions[Math.floor(Math.random() * actions.length)];
             
             switch (action) {
                 case 'attack':
-                    enemySprite.classList.add('attacking');
-                    createEffect('💥', playerSprite);
+                    const damage = Math.floor(Math.random() * 25) + 15;
+                    let actualDamage = damage;
                     
-                    setTimeout(() => {
-                        enemySprite.classList.remove('attacking');
-                        
-                        let damage = Math.floor(Math.random() * 25) + 15;
-                        
-                        // Reduzir dano se estiver defendendo
-                        if (isDefending) {
-                            damage = Math.floor(damage * 0.5);
-                            isDefending = false;
-                        }
-                        
-                        playerHP = Math.max(0, playerHP - damage);
-                        updateHealthBars();
-                        
-                        addLogMessage(`${enemyName.textContent} ataca e causa ${damage} de dano!`);
-                        
-                        if (playerHP <= 0) {
-                            addLogMessage(`${enemyName.textContent} vence a batalha! 💀`);
-                            createEffect('💀', enemySprite);
-                        }
-                        
-                        // Retornar o turno para o jogador
-                        setTimeout(() => {
-                            isPlayerTurn = true;
-                            enableButtons();
-                        }, 1000);
-                    }, 500);
+                    if (isDefending) {
+                        actualDamage = Math.floor(damage * 0.5);
+                        isDefending = false;
+                    }
+                    
+                    playerHealth = Math.max(0, playerHealth - actualDamage);
+                    updateHealthBars();
+                    
+                    addLogMessage(`Quantum Mage ataca e causa ${actualDamage} de dano!`);
+                    
+                    if (playerHealth <= 0) {
+                        addLogMessage('💀 Quantum Mage vence a batalha!');
+                        return;
+                    }
                     break;
                     
                 case 'special':
-                    enemySprite.classList.add('special');
-                    createEffect('🔥', enemySprite);
+                    const specialDamage = Math.floor(Math.random() * 35) + 20;
+                    let actualSpecialDamage = specialDamage;
                     
-                    setTimeout(() => {
-                        enemySprite.classList.remove('special');
-                        playerSprite.classList.add('hit');
-                        createEffect('💥', playerSprite);
-                        
-                        setTimeout(() => {
-                            playerSprite.classList.remove('hit');
-                            
-                            let damage = Math.floor(Math.random() * 35) + 25;
-                            
-                            // Reduzir dano se estiver defendendo
-                            if (isDefending) {
-                                damage = Math.floor(damage * 0.5);
-                                isDefending = false;
-                            }
-                            
-                            playerHP = Math.max(0, playerHP - damage);
-                            updateHealthBars();
-                            
-                            addLogMessage(`${enemyName.textContent} usa habilidade especial e causa ${damage} de dano! ⚡`);
-                            
-                            if (playerHP <= 0) {
-                                addLogMessage(`${enemyName.textContent} vence a batalha com uma habilidade especial! 💀`);
-                                createEffect('💀', enemySprite);
-                            }
-                            
-                            // Retornar o turno para o jogador
-                            setTimeout(() => {
-                                isPlayerTurn = true;
-                                enableButtons();
-                            }, 1000);
-                        }, 300);
-                    }, 1000);
+                    if (isDefending) {
+                        actualSpecialDamage = Math.floor(specialDamage * 0.5);
+                        isDefending = false;
+                    }
+                    
+                    playerHealth = Math.max(0, playerHealth - actualSpecialDamage);
+                    updateHealthBars();
+                    
+                    addLogMessage(`Quantum Mage usa habilidade especial e causa ${actualSpecialDamage} de dano!`);
+                    
+                    if (playerHealth <= 0) {
+                        addLogMessage('💀 Quantum Mage vence a batalha com uma habilidade especial!');
+                        return;
+                    }
                     break;
                     
                 case 'defend':
-                    addLogMessage(`${enemyName.textContent} se defende!`);
-                    createEffect('🛡️', enemySprite);
-                    
-                    // Retornar o turno para o jogador
-                    setTimeout(() => {
-                        isPlayerTurn = true;
-                        enableButtons();
-                    }, 1000);
+                    addLogMessage('Quantum Mage se defende!');
                     break;
             }
-        }
-
-        // Habilitar botões
-        function enableButtons() {
-            if (playerHP > 0 && enemyHP > 0) {
-                attackBtn.disabled = false;
-                specialBtn.disabled = false;
-                defendBtn.disabled = false;
-            }
+            
+            setTimeout(() => {
+                isPlayerTurn = true;
+                enableButtons();
+            }, 1500);
         }
 
         // Eventos dos botões
@@ -689,7 +507,6 @@
 
         // Inicialização
         document.addEventListener('DOMContentLoaded', () => {
-            initBattle();
             updateHealthBars();
         });
     </script>

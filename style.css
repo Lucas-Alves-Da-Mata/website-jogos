@@ -1655,3 +1655,119 @@ footer {
         font-size: 2rem;
     }
 }
+
+/* Diminuir botão de iniciar batalha */
+#startBattle {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    width: auto;
+    margin: 1rem auto;
+    display: block;
+}
+
+/* Diminuir botão de confirmação da seleção */
+#confirmSelection {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    width: auto;
+    margin: 1rem auto;
+    display: block;
+}
+
+/* Estilo para botões menores */
+.hero-btn.small {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    width: auto;
+    margin: 1rem auto;
+    display: block;
+}
+
+/* Ajustar espaçamento dos botões */
+.battle-section .hero-btn.primary {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    width: auto;
+    margin: 1rem auto;
+    display: block;
+}
+
+.selection-modal .hero-btn.primary {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    width: auto;
+    margin: 1rem auto;
+    display: block;
+}
+
+/* Responsividade para botões menores */
+@media (max-width: 768px) {
+    #startBattle,
+    #confirmSelection,
+    .battle-section .hero-btn.primary,
+    .selection-modal .hero-btn.primary {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    #startBattle,
+    #confirmSelection,
+    .battle-section .hero-btn.primary,
+    .selection-modal .hero-btn.primary {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.8rem;
+        border-radius: 15px;
+    }
+}
+/* Diminuir e centralizar o botão de iniciar batalha */
+#startBattleFromSelection {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    width: auto;
+    margin: 1rem auto;
+    display: block;
+    background: linear-gradient(45deg, #00ffff, #00ff88);
+    color: #000;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#startBattleFromSelection:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+}
+
+#startBattleFromSelection:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Responsividade para o botão */
+@media (max-width: 768px) {
+    #startBattleFromSelection {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    #startBattleFromSelection {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.8rem;
+        border-radius: 15px;
+    }
+}
